@@ -1,43 +1,63 @@
 # Baby Track
 
-A deliberately simple, mobile-first baby care and development tracker.
+A simple, mobile-first, local-first baby care and development tracker. The application has no runtime dependencies, account requirement, analytics SDK, or remote database.
 
-## What it tracks
+## Features
 
-- Feeding (breast, bottle, formula, solids)
-- Sleep logs and duration
-- Diapers
-- Tummy time
-- Notes and daily timeline
-- Weight, length, and head circumference
-- Developmental milestone memories
-- Baby name, birth date, and calculated age
-- JSON data export
+### Daily care
+- Feeding: breast, bottle, formula, solids, optional amount in oz/mL
+- Sleep: enter a duration or start/stop a live timer
+- Diapers: wet, dirty, both, or dry
+- Pumping: duration or live timer
+- Tummy time: duration or live timer
+- Medicine administration log (logging only; the app does not recommend doses)
+- General notes
+- Today dashboard and chronological timeline
 
-## Privacy
+### Growth & development
+- Weight, length, and head-circumference history
+- Development journal organized by CDC milestone ages from 2 months through 3 years
+- Milestone completion progress
+- Direct link to CDC's official milestone resources
 
-Version 1 is local-first. Data is stored in the browser using `localStorage`; there is no account, analytics service, remote database, or third-party data transmission in the app.
+The milestone journal is not a diagnostic or screening instrument. CDC describes milestones as things most children (75% or more) can do by a given age. Concerns about development should be discussed with a child's healthcare professional.
 
-Because browser storage can be cleared, use **Export my data** periodically for anything you want to preserve.
+### Insights
+- 7- and 30-day care summaries
+- Average feeds and diapers per day
+- Recorded sleep average
+- Daily logging activity visualization
+- Tummy-time totals
 
-## Run locally
+These summaries describe the data entered by the caregiver; they do not determine whether a baby's feeding, sleep, growth, or development is medically appropriate.
 
-No build step or dependencies are required.
+### Privacy & backup
+Baby Track stores its data in browser `localStorage`. It does not send baby data to a server. Users can export a complete JSON backup, import it later, or erase all local data from the profile screen.
+
+Browser data can be cleared by the browser or operating system, so important records should be exported periodically.
+
+## Run
+
+No package installation or build step is required:
 
 ```bash
 python3 -m http.server 8000
 ```
 
-Then open `http://localhost:8000`.
+Open `http://localhost:8000`.
 
-You can also open `index.html` directly for most functionality.
+For PWA/service-worker behavior, serve the application over HTTP(S) rather than opening the HTML as a local file.
 
-## Product philosophy
+## Architecture
 
-Baby Track is designed for tired parents: common actions should take only a few taps, the current day is the default view, and deeper history stays out of the way until it is needed.
+- `index.html` — semantic application shell and dialogs
+- `styles.css` — responsive mobile-first design system
+- `app.js` — data model, care logging, timers, growth, milestones, insights, import/export
+- `manifest.webmanifest` — installable web-app metadata
+- `sw.js` — offline application-shell cache
 
-Milestones are intentionally presented as a personal development log rather than a screening or diagnostic system. Development varies between children; questions or concerns belong with a qualified pediatric clinician.
+Data uses a versioned `baby-track-v2` localStorage key and migrates the original `baby-track-v1` record on first load.
 
-## Next-stage architecture
+## Potential next phase
 
-The local data model is intentionally small so a later release can add optional family sync, authentication, pediatric visit reports, reminders, richer charts, and encrypted cloud backup without making the core logging workflow complicated.
+The local-first architecture can be extended with optional encrypted caregiver sync, multiple children, pediatric visit reports, reminders, vaccination/appointment records, attachment support, growth-chart percentile calculations using validated standards, and authenticated cloud backup. Those features should remain optional so the core logging flow stays fast and private.

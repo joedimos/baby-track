@@ -1,9 +1,11 @@
 {
-  "name":"Baby Track",
+  "name":"Baby Track — Care & Development",
   "short_name":"Baby Track",
-  "description":"Simple baby care, growth and development tracking.",
+  "description":"Private, local-first baby care, growth and development tracking.",
   "start_url":"./",
+  "scope":"./",
   "display":"standalone",
   "background_color":"#fffaf6",
-  "theme_color":"#fff8f2"
+  "theme_color":"#fff8f2",
+  "categories":["health","lifestyle"]
 }

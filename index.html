@@ -1,72 +1,19 @@
 <!doctype html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
-  <meta name="theme-color" content="#fff8f2" />
-  <meta name="description" content="A simple, private baby care and development tracker." />
-  <link rel="manifest" href="manifest.webmanifest" />
-  <link rel="stylesheet" href="styles.css" />
-  <title>Baby Track</title>
-</head>
-<body>
-  <header class="topbar">
-    <div><p class="eyebrow">BABY TRACK</p><h1 id="greeting">Today</h1><p id="babyAge" class="muted">Set up your baby's profile to begin</p></div>
-    <button class="icon-btn" id="profileBtn" aria-label="Baby profile">♡</button>
-  </header>
-
-  <main>
-    <section id="today" class="view active">
-      <div class="quick-grid" id="quickActions">
-        <button data-type="feed"><span>🍼</span>Feed</button>
-        <button data-type="sleep"><span>🌙</span>Sleep</button>
-        <button data-type="diaper"><span>☁️</span>Diaper</button>
-        <button data-type="tummy"><span>🧸</span>Tummy time</button>
-      </div>
-      <div class="card summary-card">
-        <div class="section-head"><h2>Today</h2><span id="todayDate"></span></div>
-        <div class="stats" id="todayStats"></div>
-      </div>
-      <div class="section-head"><h2>Recent</h2><button class="text-btn" data-nav="timeline">See all</button></div>
-      <div id="recentList" class="list"></div>
-    </section>
-
-    <section id="growth" class="view">
-      <div class="section-head"><div><p class="eyebrow">GROWTH</p><h1>Measurements</h1></div><button class="primary small" id="addGrowth">+ Add</button></div>
-      <p class="muted">Keep a simple record of measurements from home or pediatric visits.</p>
-      <div id="growthLatest" class="metric-grid"></div>
-      <div class="card"><h2>History</h2><div id="growthList" class="list"></div></div>
-    </section>
-
-    <section id="development" class="view">
-      <p class="eyebrow">DEVELOPMENT</p><h1>Milestones</h1>
-      <p class="muted">Celebrate skills as they appear. Children develop at different rates; this is a personal log, not a diagnostic tool.</p>
-      <div id="milestoneProgress" class="card"></div>
-      <div id="milestoneList"></div>
-    </section>
-
-    <section id="timeline" class="view">
-      <div class="section-head"><div><p class="eyebrow">HISTORY</p><h1>Timeline</h1></div><button class="primary small" id="addNote">+ Note</button></div>
-      <div class="filter-row" id="filters">
-        <button class="chip active" data-filter="all">All</button><button class="chip" data-filter="feed">Feeds</button><button class="chip" data-filter="sleep">Sleep</button><button class="chip" data-filter="diaper">Diapers</button>
-      </div>
-      <div id="timelineList" class="list"></div>
-    </section>
-  </main>
-
-  <nav class="bottom-nav">
-    <button class="active" data-nav="today"><span>⌂</span>Today</button>
-    <button data-nav="growth"><span>↗</span>Growth</button>
-    <button data-nav="development"><span>☆</span>Milestones</button>
-    <button data-nav="timeline"><span>☷</span>Timeline</button>
-  </nav>
-
-  <dialog id="entryDialog"><form method="dialog" id="entryForm"><div class="modal-head"><h2 id="entryTitle">Add entry</h2><button value="cancel" class="icon-btn">×</button></div><input type="hidden" id="entryType"><label>When<input id="entryTime" type="datetime-local" required></label><div id="entryFields"></div><label>Note<textarea id="entryNote" rows="3" placeholder="Optional"></textarea></label><button class="primary" value="default" id="saveEntry">Save</button></form></dialog>
-
-  <dialog id="growthDialog"><form method="dialog" id="growthForm"><div class="modal-head"><h2>Add measurement</h2><button value="cancel" class="icon-btn">×</button></div><label>Date<input id="growthDate" type="date" required></label><div class="two-col"><label>Weight (lb)<input id="weight" type="number" step="0.1" min="0"></label><label>Length (in)<input id="length" type="number" step="0.1" min="0"></label></div><label>Head circumference (in)<input id="head" type="number" step="0.1" min="0"></label><label>Note<textarea id="growthNote" rows="2"></textarea></label><button class="primary" value="default" id="saveGrowth">Save measurement</button></form></dialog>
-
-  <dialog id="profileDialog"><form method="dialog" id="profileForm"><div class="modal-head"><h2>Baby profile</h2><button value="cancel" class="icon-btn">×</button></div><label>Name<input id="babyName" placeholder="Baby's name"></label><label>Date of birth<input id="birthDate" type="date"></label><button class="primary" value="default" id="saveProfile">Save profile</button><button type="button" class="danger-link" id="exportData">Export my data</button></form></dialog>
-
-  <script src="app.js"></script>
-</body>
-</html>
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="#fff8f2">
+  <meta name="description" content="Private, local-first baby care and development tracker."><link rel="manifest" href="manifest.webmanifest"><link rel="stylesheet" href="styles.css"><title>Baby Track</title>
+</head><body>
+<header class="topbar"><div><p class="eyebrow">BABY TRACK</p><h1 id="greeting">Today</h1><p id="babyAge" class="muted"></p></div><button class="icon-btn" id="profileBtn" aria-label="Profile">♡</button></header>
+<main>
+<section id="today" class="view active"><div class="quick-grid" id="quickActions"><button data-type="feed"><span>🍼</span>Feed</button><button data-type="sleep"><span>🌙</span>Sleep</button><button data-type="diaper"><span>☁️</span>Diaper</button><button data-type="pump"><span>💧</span>Pump</button><button data-type="tummy"><span>🧸</span>Tummy</button><button data-type="medicine"><span>⚕</span>Medicine</button></div><div class="card"><div class="section-head"><h2>Today</h2><span id="todayDate"></span></div><div class="stats" id="todayStats"></div></div><div id="activeTimers"></div><div class="section-head"><h2>Recent</h2><button class="text-btn" data-nav="timeline">See all</button></div><div id="recentList" class="list"></div></section>
+<section id="growth" class="view"><div class="section-head"><div><p class="eyebrow">GROWTH</p><h1>Measurements</h1></div><button class="primary small" id="addGrowth">+ Add</button></div><p class="muted">Record measurements from home or pediatric visits. Percentiles are intentionally not estimated without an appropriate clinical growth-chart calculation.</p><div id="growthLatest" class="metric-grid"></div><div class="card"><h2>History</h2><div id="growthList" class="list"></div></div></section>
+<section id="development" class="view"><p class="eyebrow">DEVELOPMENT</p><h1>Milestones</h1><p class="muted">A development journal based on CDC milestone ages. It does not replace standardized developmental screening.</p><div id="milestoneProgress" class="card"></div><div id="milestoneList"></div><a class="resource-link" href="https://www.cdc.gov/act-early/milestones/index.html" target="_blank" rel="noopener">CDC developmental milestone resources ↗</a></section>
+<section id="timeline" class="view"><div class="section-head"><div><p class="eyebrow">HISTORY</p><h1>Timeline</h1></div><button class="primary small" id="addNote">+ Note</button></div><div class="filter-row" id="filters"><button class="chip active" data-filter="all">All</button><button class="chip" data-filter="feed">Feeds</button><button class="chip" data-filter="sleep">Sleep</button><button class="chip" data-filter="diaper">Diapers</button><button class="chip" data-filter="pump">Pump</button></div><div id="timelineList" class="list"></div></section>
+<section id="insights" class="view"><p class="eyebrow">PATTERNS</p><h1>Insights</h1><p class="muted">Simple summaries from your logs — not medical recommendations.</p><div class="range-tabs"><button class="chip active" data-days="7">7 days</button><button class="chip" data-days="30">30 days</button></div><div id="insightCards" class="metric-grid"></div><div class="card"><h2>Daily activity</h2><div id="activityChart" class="chart"></div></div><div class="card"><h2>Care summary</h2><div id="careSummary"></div></div></section>
+</main>
+<nav class="bottom-nav"><button class="active" data-nav="today"><span>⌂</span>Today</button><button data-nav="growth"><span>↗</span>Growth</button><button data-nav="development"><span>☆</span>Milestones</button><button data-nav="timeline"><span>☷</span>Timeline</button><button data-nav="insights"><span>▥</span>Insights</button></nav>
+<dialog id="entryDialog"><form id="entryForm"><div class="modal-head"><h2 id="entryTitle">Add entry</h2><button type="button" class="icon-btn close-dialog">×</button></div><input type="hidden" id="entryType"><label>When<input id="entryTime" type="datetime-local" required></label><div id="entryFields"></div><label>Note<textarea id="entryNote" rows="3" placeholder="Optional"></textarea></label><button class="primary" type="submit">Save</button></form></dialog>
+<dialog id="growthDialog"><form id="growthForm"><div class="modal-head"><h2>Add measurement</h2><button type="button" class="icon-btn close-dialog">×</button></div><label>Date<input id="growthDate" type="date" required></label><div class="two-col"><label>Weight (lb)<input id="weight" type="number" step="0.1" min="0"></label><label>Length (in)<input id="length" type="number" step="0.1" min="0"></label></div><label>Head circumference (in)<input id="head" type="number" step="0.1" min="0"></label><label>Note<textarea id="growthNote" rows="2"></textarea></label><button class="primary" type="submit">Save measurement</button></form></dialog>
+<dialog id="profileDialog"><form id="profileForm"><div class="modal-head"><h2>Baby & data</h2><button type="button" class="icon-btn close-dialog">×</button></div><label>Name<input id="babyName" placeholder="Baby's name"></label><label>Date of birth<input id="birthDate" type="date"></label><label>Due date <small>(optional)</small><input id="dueDate" type="date"></label><button class="primary" type="submit">Save profile</button><div class="data-actions"><button type="button" class="secondary" id="exportData">Export backup</button><label class="secondary file-label">Import backup<input id="importData" type="file" accept="application/json" hidden></label><button type="button" class="danger-link" id="clearData">Erase local data</button></div></form></dialog>
+<div id="toast" role="status" aria-live="polite"></div><script src="app.js"></script></body></html>
