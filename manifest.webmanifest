@@ -1,0 +1,9 @@
+{
+  "name":"Baby Track",
+  "short_name":"Baby Track",
+  "description":"Simple baby care, growth and development tracking.",
+  "start_url":"./",
+  "display":"standalone",
+  "background_color":"#fffaf6",
+  "theme_color":"#fff8f2"
+}
