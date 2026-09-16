@@ -1,6 +1,11 @@
 # Baby Track
 
-A simple, mobile-first, local-first baby care and development tracker. The application has no runtime dependencies, account requirement, analytics SDK, or remote database.
+Baby Track now contains **two implementations** of the baby care and development tracker:
+
+1. A zero-dependency, mobile-first web/PWA application in the repository root.
+2. A native **SwiftUI iOS application** under `ios/`, using SwiftData and Swift Charts.
+
+Both are designed around fast caregiver logging and local-first storage.
 
 ## Features
 
@@ -16,9 +21,9 @@ A simple, mobile-first, local-first baby care and development tracker. The appli
 
 ### Growth & development
 - Weight, length, and head-circumference history
-- Development journal organized by CDC milestone ages from 2 months through 3 years
-- Milestone completion progress
-- Direct link to CDC's official milestone resources
+- Development milestone journal organized by age
+- Milestone completion tracking
+- Growth visualization in the native iOS app
 
 The milestone journal is not a diagnostic or screening instrument. CDC describes milestones as things most children (75% or more) can do by a given age. Concerns about development should be discussed with a child's healthcare professional.
 
@@ -27,16 +32,11 @@ The milestone journal is not a diagnostic or screening instrument. CDC describes
 - Average feeds and diapers per day
 - Recorded sleep average
 - Daily logging activity visualization
-- Tummy-time totals
+- Tummy-time totals in the web application
 
 These summaries describe the data entered by the caregiver; they do not determine whether a baby's feeding, sleep, growth, or development is medically appropriate.
 
-### Privacy & backup
-Baby Track stores its data in browser `localStorage`. It does not send baby data to a server. Users can export a complete JSON backup, import it later, or erase all local data from the profile screen.
-
-Browser data can be cleared by the browser or operating system, so important records should be exported periodically.
-
-## Run
+## Web app
 
 No package installation or build step is required:
 
@@ -44,20 +44,42 @@ No package installation or build step is required:
 python3 -m http.server 8000
 ```
 
-Open `http://localhost:8000`.
+Open `http://localhost:8000`. The web app stores data in browser `localStorage`, supports JSON backup/import, and includes an offline application-shell service worker.
 
-For PWA/service-worker behavior, serve the application over HTTP(S) rather than opening the HTML as a local file.
+## Native iOS app
+
+The `ios/` directory contains a native iOS 17+ application using SwiftUI, SwiftData, and Swift Charts with no third-party runtime dependencies.
+
+```bash
+cd ios
+brew install xcodegen
+xcodegen generate
+open BabyTrack.xcodeproj
+```
+
+Then choose an iPhone simulator or connected device in Xcode and Run. See `ios/README.md` for details.
 
 ## Architecture
 
-- `index.html` — semantic application shell and dialogs
-- `styles.css` — responsive mobile-first design system
-- `app.js` — data model, care logging, timers, growth, milestones, insights, import/export
-- `manifest.webmanifest` — installable web-app metadata
+### Web
+- `index.html` — application shell and dialogs
+- `styles.css` — responsive design system
+- `app.js` — care logging, timers, growth, milestones, insights, import/export
+- `manifest.webmanifest` — web-app metadata
 - `sw.js` — offline application-shell cache
 
-Data uses a versioned `baby-track-v2` localStorage key and migrates the original `baby-track-v1` record on first load.
+### iOS
+- `ios/project.yml` — reproducible XcodeGen project definition
+- `ios/BabyTrack/BabyTrackApp.swift` — app and tab navigation
+- `ios/BabyTrack/Models.swift` — SwiftData domain model
+- `ios/BabyTrack/TodayView.swift` — dashboard and active timers
+- `ios/BabyTrack/AddEntryView.swift` — care logging and profile forms
+- `ios/BabyTrack/OtherViews.swift` — growth, milestones, timeline, and insights
+
+## Privacy
+
+Neither implementation currently requires a Baby Track account or remote database. The web and iOS stores are separate today. Optional encrypted caregiver/family synchronization can be introduced later without making cloud storage mandatory.
 
 ## Potential next phase
 
-The local-first architecture can be extended with optional encrypted caregiver sync, multiple children, pediatric visit reports, reminders, vaccination/appointment records, attachment support, growth-chart percentile calculations using validated standards, and authenticated cloud backup. Those features should remain optional so the core logging flow stays fast and private.
+Multiple children, encrypted caregiver sync, pediatric visit reports, appointments and reminders, vaccination records, attachments, validated growth-chart percentile calculations, widgets, notifications, Apple Watch quick logging, and authenticated cloud backup.
