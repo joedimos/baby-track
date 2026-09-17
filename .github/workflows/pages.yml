@@ -30,8 +30,14 @@ jobs:
           test -f app.js
           test -f midwife-data.js
           test -f midwife.js
+          test -f birth-intelligence.js
           test -f manifest.webmanifest
           test -f sw.js
+          node --check app.js
+          node --check midwife-data.js
+          node --check midwife.js
+          node --check birth-intelligence.js
+          grep -q 'birth-intelligence.js' index.html
       - name: Configure Pages
         uses: actions/configure-pages@v5
       - name: Upload static site
