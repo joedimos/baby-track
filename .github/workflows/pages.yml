@@ -1,4 +1,4 @@
-name: Deploy Baby Track to GitHub Pages
+name: Deploy Our Baby to GitHub Pages
 
 on:
   push:
@@ -25,25 +25,32 @@ jobs:
         uses: actions/checkout@v4
       - name: Validate web application
         run: |
-          test -f index.html
-          test -f styles.css
-          test -f app.js
-          test -f midwife-data.js
-          test -f midwife.js
-          test -f birth-intelligence.js
-          test -f manifest.webmanifest
-          test -f sw.js
+          set -euo pipefail
+          for f in index.html styles.css app.js midwife-data.js midwife.js birth-intelligence.js our-baby.js manifest.webmanifest sw.js; do test -s "$f"; done
           node --check app.js
           node --check midwife-data.js
           node --check midwife.js
           node --check birth-intelligence.js
+          node --check our-baby.js
+          node -e "JSON.parse(require('fs').readFileSync('manifest.webmanifest','utf8'))"
+          grep -q 'app.js' index.html
+          grep -q 'midwife.js' index.html
           grep -q 'birth-intelligence.js' index.html
+          grep -q 'our-baby.js' index.html
+          grep -q 'our-baby.js' sw.js
+          grep -q 'id=\"careTeamPanel\"' index.html
+          grep -q 'id=\"laborDialog\"' index.html
+          grep -q 'id=\"preferencesDialog\"' index.html
       - name: Configure Pages
         uses: actions/configure-pages@v5
+      - name: Build static artifact
+        run: |
+          mkdir -p _site
+          cp index.html styles.css app.js midwife-data.js midwife.js birth-intelligence.js our-baby.js manifest.webmanifest sw.js _site/
       - name: Upload static site
         uses: actions/upload-pages-artifact@v3
         with:
-          path: .
+          path: _site
       - name: Deploy
         id: deployment
         uses: actions/deploy-pages@v4
